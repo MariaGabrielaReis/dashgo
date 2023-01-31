@@ -1,4 +1,6 @@
-import { Flex, useBreakpointValue } from "@chakra-ui/react";
+import { useSidebarDrawer } from "@/contexts/SidebarDrawerContext";
+import { Flex, IconButton, Icon, useBreakpointValue } from "@chakra-ui/react";
+import { List } from "phosphor-react";
 
 import { Logo } from "./Logo";
 import { NotificationsNav } from "./NotificationsNav";
@@ -6,6 +8,8 @@ import { Profile } from "./Profile";
 import { SearchBar } from "./SearchBar";
 
 export function Header() {
+  const { onOpen } = useSidebarDrawer();
+
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -27,6 +31,16 @@ export function Header() {
       px={"6"}
       align={"center"}
     >
+      {!isWideVersion && !isMiddleVersion && (
+        <IconButton
+          aria-label="Abre navegação"
+          icon={<Icon as={List} />}
+          fontSize={"24"}
+          variant={"unstyled"}
+          onClick={onOpen}
+          mr={"2"}
+        />
+      )}
       <Logo />
 
       {isMiddleVersion && <SearchBar />}

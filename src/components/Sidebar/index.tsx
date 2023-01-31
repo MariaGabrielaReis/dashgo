@@ -1,22 +1,45 @@
-import { Text, Box, Stack, Link, Icon } from "@chakra-ui/react";
-import { GitMerge, PresentationChart, Table, UserList } from "phosphor-react";
-import { NavLink } from "./NavLink";
-import { NavSection } from "./NavSection";
+import { useSidebarDrawer } from "@/contexts/SidebarDrawerContext";
+import {
+  Box,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+
+import { SidebarNav } from "./SidebarNav";
 
 export function Sidebar() {
+  const { isOpen, onClose } = useSidebarDrawer();
+
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    md: false,
+  });
+
+  if (isDrawerSidebar) {
+    return (
+      <Drawer isOpen={isOpen} placement={"left"} onClose={onClose}>
+        <DrawerOverlay>
+          <DrawerContent bg={"gray.900"} p={"4"}>
+            <DrawerCloseButton mt={"6"} />
+            <DrawerHeader> Navegação</DrawerHeader>
+
+            <DrawerBody>
+              <SidebarNav />
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
+    );
+  }
+
   return (
     <Box as="aside" w={"64"} mr={"8"}>
-      <Stack spacing={"12"} align={"flex-start"}>
-        <NavSection title={"GERAL"}>
-          <NavLink icon={PresentationChart} label={"Dashboard"} />
-          <NavLink icon={UserList} label={"Usuários"} />
-        </NavSection>
-
-        <NavSection title={"AUTOMAÇÃO"}>
-          <NavLink icon={Table} label={"Formulários"} />
-          <NavLink icon={GitMerge} label={"Automação"} />
-        </NavSection>
-      </Stack>
+      <SidebarNav />
     </Box>
   );
 }
