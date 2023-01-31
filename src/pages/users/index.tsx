@@ -13,6 +13,7 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { PencilSimple, Plus } from "phosphor-react";
 
@@ -21,6 +22,11 @@ import { Sidebar } from "@/components/Sidebar";
 import { Pagination } from "@/components/Pagination";
 
 export default function UserList() {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
+
   return (
     <Box>
       <Header />
@@ -42,24 +48,24 @@ export default function UserList() {
               leftIcon={<Icon as={Plus} size={24} />}
               cursor={"pointer"}
             >
-              Criar novo usuário
+              Criar novo
             </Button>
           </Flex>
 
           <Table colorScheme={"whiteAlpha"}>
             <Thead>
               <Tr>
-                <Th px={"6"} color={"gray.300"} width={"8"}>
+                <Th px={["4", "4", "6"]} color={"gray.300"} width={"8"}>
                   <Checkbox colorScheme={"blue"} size={"lg"} />
                 </Th>
                 <Th color={"gray.500"}>Usuário</Th>
-                <Th color={"gray.500"}>Data de cadastro</Th>
+                {isWideVersion && <Th color={"gray.500"}>Data de cadastro</Th>}
                 <Th w={"8"} />
               </Tr>
             </Thead>
             <Tbody>
               <Tr>
-                <Td px={"6"}>
+                <Td px={["4", "4", "6"]}>
                   <Checkbox colorScheme={"blue"} size={"lg"} />
                 </Td>
                 <Td px={"6"}>
@@ -70,30 +76,34 @@ export default function UserList() {
                     </Text>
                   </Box>
                 </Td>
-                <Td px={"6"}>
-                  <Text>21 de julho, 2021</Text>
-                </Td>
-                <Td>
-                  <Button
-                    as="a"
-                    size={"md"}
-                    fontSize={"md"}
-                    colorScheme={"teal"}
-                    leftIcon={<Icon as={PencilSimple} />}
-                    variant={"outline"}
-                    _hover={{
-                      bg: "transparent",
-                      color: "teal.500",
-                      borderColor: "teal.500",
-                    }}
-                    cursor={"pointer"}
-                  >
-                    Editar
-                  </Button>
-                </Td>
+                {isWideVersion && (
+                  <Td px={"6"}>
+                    <Text>21 de julho, 2021</Text>
+                  </Td>
+                )}
+                {isWideVersion && (
+                  <Td>
+                    <Button
+                      as="a"
+                      size={"md"}
+                      fontSize={"md"}
+                      colorScheme={"teal"}
+                      leftIcon={<Icon as={PencilSimple} />}
+                      variant={"outline"}
+                      _hover={{
+                        bg: "transparent",
+                        color: "teal.500",
+                        borderColor: "teal.500",
+                      }}
+                      cursor={"pointer"}
+                    >
+                      Editar
+                    </Button>
+                  </Td>
+                )}
               </Tr>
               <Tr>
-                <Td px={"6"}>
+                <Td px={["4", "4", "6"]}>
                   <Checkbox colorScheme={"blue"} size={"lg"} />
                 </Td>
                 <Td px={"6"}>
@@ -104,30 +114,34 @@ export default function UserList() {
                     </Text>
                   </Box>
                 </Td>
-                <Td px={"6"}>
-                  <Text>21 de julho, 2021</Text>
-                </Td>
-                <Td>
-                  <Button
-                    as="a"
-                    size={"md"}
-                    fontSize={"md"}
-                    colorScheme={"teal"}
-                    leftIcon={<Icon as={PencilSimple} />}
-                    variant={"outline"}
-                    _hover={{
-                      bg: "transparent",
-                      color: "teal.500",
-                      borderColor: "teal.500",
-                    }}
-                    cursor={"pointer"}
-                  >
-                    Editar
-                  </Button>
-                </Td>
+                {isWideVersion && (
+                  <Td px={"6"}>
+                    <Text>21 de julho, 2021</Text>
+                  </Td>
+                )}
+                {isWideVersion && (
+                  <Td>
+                    <Button
+                      as="a"
+                      size={"md"}
+                      fontSize={"md"}
+                      colorScheme={"teal"}
+                      leftIcon={<Icon as={PencilSimple} />}
+                      variant={"outline"}
+                      _hover={{
+                        bg: "transparent",
+                        color: "teal.500",
+                        borderColor: "teal.500",
+                      }}
+                      cursor={"pointer"}
+                    >
+                      Editar
+                    </Button>
+                  </Td>
+                )}
               </Tr>
               <Tr>
-                <Td px={"6"}>
+                <Td px={["4", "4", "6"]}>
                   <Checkbox colorScheme={"blue"} size={"lg"} />
                 </Td>
                 <Td px={"6"}>
@@ -138,27 +152,31 @@ export default function UserList() {
                     </Text>
                   </Box>
                 </Td>
-                <Td px={"6"}>
-                  <Text>21 de julho, 2021</Text>
-                </Td>
-                <Td>
-                  <Button
-                    as="a"
-                    size={"md"}
-                    fontSize={"md"}
-                    colorScheme={"teal"}
-                    leftIcon={<Icon as={PencilSimple} />}
-                    variant={"outline"}
-                    _hover={{
-                      bg: "transparent",
-                      color: "teal.500",
-                      borderColor: "teal.500",
-                    }}
-                    cursor={"pointer"}
-                  >
-                    Editar
-                  </Button>
-                </Td>
+                {isWideVersion && (
+                  <Td px={"6"}>
+                    <Text>21 de julho, 2021</Text>
+                  </Td>
+                )}
+                {isWideVersion && (
+                  <Td>
+                    <Button
+                      as="a"
+                      size={"md"}
+                      fontSize={"md"}
+                      colorScheme={"teal"}
+                      leftIcon={<Icon as={PencilSimple} />}
+                      variant={"outline"}
+                      _hover={{
+                        bg: "transparent",
+                        color: "teal.500",
+                        borderColor: "teal.500",
+                      }}
+                      cursor={"pointer"}
+                    >
+                      Editar
+                    </Button>
+                  </Td>
+                )}
               </Tr>
             </Tbody>
           </Table>
