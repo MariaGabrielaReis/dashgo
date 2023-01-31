@@ -27,15 +27,16 @@ export function Header() {
       maxW={1480}
       h={"20"}
       mx={"auto"}
-      mt={"4"}
+      mt={[0, 0, "4"]}
       px={"6"}
-      align={"center"}
+      align={["flex-end", "flex-end", "center"]}
     >
       {!isWideVersion && !isMiddleVersion && (
         <IconButton
           aria-label="Abre navegação"
           icon={<Icon as={List} />}
-          fontSize={"24"}
+          fontSize={"28"}
+          margin={0}
           variant={"unstyled"}
           onClick={onOpen}
           mr={"2"}
