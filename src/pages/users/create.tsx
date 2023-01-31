@@ -12,6 +12,7 @@ import {
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { Input } from "@/components/Form/Input";
+import Link from "next/link";
 
 export default function CreateUser() {
   return (
@@ -49,16 +50,20 @@ export default function CreateUser() {
               width={"100%"}
               justify={["space-between", "flex-end"]}
             >
-              <Button
-                minW={["45%", 100]}
-                bg={"transparent"}
-                fontWeight={"medium"}
-                _hover={{
-                  bg: "gray.700",
-                }}
-              >
-                Cancelar
-              </Button>
+              <Link href={"/users"} passHref>
+                <Button
+                  as="a"
+                  minW={["45%", 100]}
+                  bg={"transparent"}
+                  fontWeight={"medium"}
+                  _hover={{
+                    bg: "gray.700",
+                  }}
+                >
+                  Cancelar
+                </Button>
+              </Link>
+
               <Button colorScheme={"teal"} minW={["45%", 100]}>
                 Salvar
               </Button>

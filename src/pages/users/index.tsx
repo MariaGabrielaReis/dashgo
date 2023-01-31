@@ -20,6 +20,7 @@ import { PencilSimple, Plus } from "phosphor-react";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { Pagination } from "@/components/Pagination";
+import Link from "next/link";
 
 export default function UserList() {
   const isWideVersion = useBreakpointValue({
@@ -40,16 +41,18 @@ export default function UserList() {
               Usuários
             </Heading>
 
-            <Button
-              as="a"
-              size={"md"}
-              fontSize={"md"}
-              colorScheme={"teal"}
-              leftIcon={<Icon as={Plus} size={24} />}
-              cursor={"pointer"}
-            >
-              Criar novo
-            </Button>
+            <Link href={"/users/create"} passHref>
+              <Button
+                as="a"
+                size={"md"}
+                fontSize={"md"}
+                colorScheme={"teal"}
+                leftIcon={<Icon as={Plus} size={24} />}
+                cursor={"pointer"}
+              >
+                Criar novo
+              </Button>
+            </Link>
           </Flex>
 
           <Table colorScheme={"whiteAlpha"}>
