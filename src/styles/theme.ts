@@ -14,6 +14,9 @@ export const theme = extendTheme({
       "800": "#27272A",
       "900": "#18181B",
     },
+    black: {
+      "900": "#0D0D0E",
+    },
   },
   fonts: {
     heading: "Roboto",
@@ -22,7 +25,7 @@ export const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "gray.900",
+        bg: "black.900",
         color: "gray.50",
       },
     },
