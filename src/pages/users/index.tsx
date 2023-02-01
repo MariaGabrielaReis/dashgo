@@ -21,12 +21,19 @@ import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { Pagination } from "@/components/Pagination";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function UserList() {
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/users")
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }, []);
 
   return (
     <Box>
@@ -41,18 +48,18 @@ export default function UserList() {
               Usuários
             </Heading>
 
-            <Link href={"/users/create"} passHref>
-              <Button
-                as="a"
-                size={"md"}
-                fontSize={"md"}
-                colorScheme={"teal"}
-                leftIcon={<Icon as={Plus} size={24} />}
-                cursor={"pointer"}
-              >
-                Criar novo
-              </Button>
-            </Link>
+            <Button
+              as={Link}
+              href={"/users/create"}
+              passHref
+              size={"md"}
+              fontSize={"md"}
+              colorScheme={"teal"}
+              leftIcon={<Icon as={Plus} size={24} />}
+              cursor={"pointer"}
+            >
+              Criar novo
+            </Button>
           </Flex>
 
           <Table colorScheme={"whiteAlpha"}>
