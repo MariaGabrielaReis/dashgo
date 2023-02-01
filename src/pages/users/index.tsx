@@ -16,20 +16,40 @@ import {
   Tr,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { PencilSimple, Plus } from "phosphor-react";
-import { useQuery } from "react-query";
 
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { Pagination } from "@/components/Pagination";
-import Link from "next/link";
+
+import { useQuery } from "react-query";
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+}
 
 export default function UserList() {
-  const { data, isLoading, error } = useQuery("users", async () => {
+  const { data, isLoading, error } = useQuery(["users"], async () => {
     const response = await fetch("http://localhost:3000/api/users");
     const data = await response.json();
+    const users = data.users?.map((user: User) => {
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: new Date(user.createdAt).toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        }),
+      };
+    });
 
-    return data;
+    return users;
   });
 
   const isWideVersion = useBreakpointValue({
@@ -88,120 +108,48 @@ export default function UserList() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
-                    <Td px={["4", "4", "6"]}>
-                      <Checkbox colorScheme={"blue"} size={"lg"} />
-                    </Td>
-                    <Td px={"6"}>
-                      <Box>
-                        <Text fontWeight={"bold"}>Maria Gabriela Reis</Text>
-                        <Text fontSize={"sm"} color={"gray.400"}>
-                          maby@gmail.com
-                        </Text>
-                      </Box>
-                    </Td>
-                    {isWideVersion && (
-                      <Td px={"6"}>
-                        <Text>21 de julho, 2021</Text>
-                      </Td>
-                    )}
-                    {isWideVersion && (
-                      <Td>
-                        <Button
-                          as="a"
-                          size={"md"}
-                          fontSize={"md"}
-                          colorScheme={"teal"}
-                          leftIcon={<Icon as={PencilSimple} />}
-                          variant={"outline"}
-                          _hover={{
-                            bg: "transparent",
-                            color: "teal.500",
-                            borderColor: "teal.500",
-                          }}
-                          cursor={"pointer"}
-                        >
-                          Editar
-                        </Button>
-                      </Td>
-                    )}
-                  </Tr>
-                  <Tr>
-                    <Td px={["4", "4", "6"]}>
-                      <Checkbox colorScheme={"blue"} size={"lg"} />
-                    </Td>
-                    <Td px={"6"}>
-                      <Box>
-                        <Text fontWeight={"bold"}>Maria Gabriela Reis</Text>
-                        <Text fontSize={"sm"} color={"gray.400"}>
-                          maby@gmail.com
-                        </Text>
-                      </Box>
-                    </Td>
-                    {isWideVersion && (
-                      <Td px={"6"}>
-                        <Text>21 de julho, 2021</Text>
-                      </Td>
-                    )}
-                    {isWideVersion && (
-                      <Td>
-                        <Button
-                          as="a"
-                          size={"md"}
-                          fontSize={"md"}
-                          colorScheme={"teal"}
-                          leftIcon={<Icon as={PencilSimple} />}
-                          variant={"outline"}
-                          _hover={{
-                            bg: "transparent",
-                            color: "teal.500",
-                            borderColor: "teal.500",
-                          }}
-                          cursor={"pointer"}
-                        >
-                          Editar
-                        </Button>
-                      </Td>
-                    )}
-                  </Tr>
-                  <Tr>
-                    <Td px={["4", "4", "6"]}>
-                      <Checkbox colorScheme={"blue"} size={"lg"} />
-                    </Td>
-                    <Td px={"6"}>
-                      <Box>
-                        <Text fontWeight={"bold"}>Maria Gabriela Reis</Text>
-                        <Text fontSize={"sm"} color={"gray.400"}>
-                          maby@gmail.com
-                        </Text>
-                      </Box>
-                    </Td>
-                    {isWideVersion && (
-                      <Td px={"6"}>
-                        <Text>21 de julho, 2021</Text>
-                      </Td>
-                    )}
-                    {isWideVersion && (
-                      <Td>
-                        <Button
-                          as="a"
-                          size={"md"}
-                          fontSize={"md"}
-                          colorScheme={"teal"}
-                          leftIcon={<Icon as={PencilSimple} />}
-                          variant={"outline"}
-                          _hover={{
-                            bg: "transparent",
-                            color: "teal.500",
-                            borderColor: "teal.500",
-                          }}
-                          cursor={"pointer"}
-                        >
-                          Editar
-                        </Button>
-                      </Td>
-                    )}
-                  </Tr>
+                  {data.map((user: User) => {
+                    return (
+                      <Tr key={user.id}>
+                        <Td px={["4", "4", "6"]}>
+                          <Checkbox colorScheme={"blue"} size={"lg"} />
+                        </Td>
+                        <Td px={"6"}>
+                          <Box>
+                            <Text fontWeight={"bold"}>{user.name}</Text>
+                            <Text fontSize={"sm"} color={"gray.400"}>
+                              {user.email}
+                            </Text>
+                          </Box>
+                        </Td>
+                        {isWideVersion && (
+                          <Td px={"6"}>
+                            <Text>{user.createdAt}</Text>
+                          </Td>
+                        )}
+                        {isWideVersion && (
+                          <Td>
+                            <Button
+                              as="a"
+                              size={"md"}
+                              fontSize={"md"}
+                              colorScheme={"teal"}
+                              leftIcon={<Icon as={PencilSimple} />}
+                              variant={"outline"}
+                              _hover={{
+                                bg: "transparent",
+                                color: "teal.500",
+                                borderColor: "teal.500",
+                              }}
+                              cursor={"pointer"}
+                            >
+                              Editar
+                            </Button>
+                          </Td>
+                        )}
+                      </Tr>
+                    );
+                  })}
                 </Tbody>
               </Table>
               <Pagination />
