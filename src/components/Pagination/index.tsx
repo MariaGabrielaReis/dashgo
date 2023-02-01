@@ -48,7 +48,14 @@ export function Pagination({
       spacing={"6"}
     >
       <Text>
-        <strong>0</strong> - <strong>10</strong> de 100
+        <strong>{currentPage * registersPerPage - registersPerPage + 1}</strong>{" "}
+        -{" "}
+        <strong>
+          {currentPage === lastPage
+            ? totalCountOfRegisters
+            : registersPerPage * currentPage}
+        </strong>{" "}
+        de {totalCountOfRegisters}
       </Text>
       <HStack spacing={"2"} align={"center"}>
         {currentPage > 1 + siblingsCount && (
