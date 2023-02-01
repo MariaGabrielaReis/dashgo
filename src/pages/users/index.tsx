@@ -6,6 +6,7 @@ import {
   Flex,
   Heading,
   Icon,
+  Link,
   Spinner,
   Table,
   Tbody,
@@ -16,7 +17,7 @@ import {
   Tr,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import Link from "next/link";
+import NextLink from "next/link";
 import { PencilSimple, Plus } from "phosphor-react";
 
 import { Header } from "@/components/Header";
@@ -24,6 +25,8 @@ import { Sidebar } from "@/components/Sidebar";
 import { Pagination } from "@/components/Pagination";
 
 import { User, useUsers } from "@/services/hooks/useUsers";
+import { queryClient } from "@/services/queryClient";
+import { api } from "@/services/api";
 
 export default function UserList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +36,20 @@ export default function UserList() {
     base: false,
     lg: true,
   });
+
+  async function handlePrefetchUser(userId: string) {
+    await queryClient.prefetchQuery(
+      ["user", userId],
+      async () => {
+        const { data } = await api.get(`/users/${userId}`);
+
+        return data;
+      },
+      {
+        staleTime: 1000 * 60 * 10, //10 minutes
+      },
+    );
+  }
 
   return (
     <Box>
@@ -51,7 +68,7 @@ export default function UserList() {
             </Heading>
 
             <Button
-              as={Link}
+              as={NextLink}
               href={"/users/create"}
               passHref
               size={"md"}
@@ -96,7 +113,12 @@ export default function UserList() {
                         </Td>
                         <Td px={"6"}>
                           <Box>
-                            <Text fontWeight={"bold"}>{user.name}</Text>
+                            <Link
+                              color={"teal.500"}
+                              onMouseEnter={() => handlePrefetchUser(user.id)}
+                            >
+                              <Text fontWeight={"bold"}>{user.name}</Text>
+                            </Link>
                             <Text fontSize={"sm"} color={"gray.400"}>
                               {user.email}
                             </Text>
